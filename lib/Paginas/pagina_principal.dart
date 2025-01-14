@@ -1,5 +1,5 @@
-import 'package:aplicacion_tareas/Componentes/item_tarea.dart';
 import 'package:flutter/material.dart';
+import 'package:aplicacion_tareas/Componentes/item_tarea.dart';
 
 class PaginaPrincipal extends StatefulWidget {
   const PaginaPrincipal({super.key});
@@ -9,37 +9,60 @@ class PaginaPrincipal extends StatefulWidget {
 }
 
 class _PaginaPrincipalState extends State<PaginaPrincipal> {
-  List ListaTareas = [
+  // Lista de tareas
+  List<Map<String, dynamic>> ListaTareas = [
     {"titulo": "Tarea1", "valor": false},
-    {"titulo": "Tarea2", "valor": true}
+    {"titulo": "Tarea2", "valor": true},
+    {"titulo": "Tarea3", "valor": true}
   ];
+
+  // Método para cambiar el estado del checkbox
+  void cambiarVlCheckBox(bool? VlCheck, int posLista) {
+    setState(() {
+      ListaTareas[posLista]["valor"] = !ListaTareas[posLista]["valor"];
+    });
+  }
+
+  void AcnBorrarTarea(int posLista) {
+    setState(() {
+      ListaTareas.removeAt(posLista);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal[100],
-      //AppBar
+      // AppBar
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: Text("App Tareas"),
+        title: const Text("App Tareas"),
         foregroundColor: Colors.orange[200],
       ),
-      //Floating action button
+      // Floating action button
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal[300],
-        shape: CircleBorder(),
-        onPressed: () {},
+        shape: const CircleBorder(),
+        onPressed: () {
+          setState(() {
+            ListaTareas.add({"titulo": "Nueva Tarea", "valor": false});
+          });
+        },
         child: Icon(
           Icons.add,
           color: Colors.orange[200],
         ),
       ),
-      //Body
+      // Body
       body: ListView.builder(
         itemCount: ListaTareas.length,
         itemBuilder: (context, index) {
           return ItemTarea(
-              TextoTarea: ListaTareas[index]["titulo"].toString(), VlCheckBox: ListaTareas[index]["valor"]);
+            TextoTarea: ListaTareas[index]["titulo"],
+            VlCheckBox: ListaTareas[index]["valor"],
+            cambiarVlCheckBox: (valor) => cambiarVlCheckBox(valor, index),
+            BorrarTarea: (valor) => AcnBorrarTarea(index),
+          );
         },
       ),
     );
