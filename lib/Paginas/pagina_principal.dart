@@ -1,3 +1,4 @@
+import 'package:aplicacion_tareas/Componentes/DialogoNuTa.dart';
 import 'package:flutter/material.dart';
 import 'package:aplicacion_tareas/Componentes/item_tarea.dart';
 
@@ -28,6 +29,14 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
       ListaTareas.removeAt(posLista);
     });
   }
+  void CrearTarea(){
+    showDialog(
+      context: context, 
+      builder: (context){
+        return Dialogonuta();
+      },
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +52,11 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal[300],
         shape: const CircleBorder(),
-        onPressed: () {
-          setState(() {
-            ListaTareas.add({"titulo": "Nueva Tarea", "valor": false});
-          });
-        },
+        onPressed: CrearTarea, //(){
+        //   setState(() {
+        //     ListaTareas.add({"titulo": "Nueva Tarea", "valor": false});
+        //   });
+        // },
         child: Icon(
           Icons.add,
           color: Colors.orange[200],
