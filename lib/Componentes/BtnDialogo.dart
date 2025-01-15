@@ -9,9 +9,9 @@ class Btndialogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: AcnBtn,
       color: Colors.teal[200],
-      child: Text("adda"),
+      child: Text(TxtBtn),
     );
   }
 }

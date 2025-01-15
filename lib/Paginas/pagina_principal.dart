@@ -17,6 +17,23 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
     {"titulo": "Tarea3", "valor": true}
   ];
 
+  TextEditingController tectTxtTarea = TextEditingController();
+
+  void AcnGuardar() {
+    setState(() {
+      ListaTareas.add({
+        "titulo": tectTxtTarea.text,
+        "valor": false,
+      });
+    });
+    AcnCancelar();
+  }
+
+  void AcnCancelar() {
+    Navigator.of(context).pop();
+    tectTxtTarea.clear();
+  }
+
   // Método para cambiar el estado del checkbox
   void cambiarVlCheckBox(bool? VlCheck, int posLista) {
     setState(() {
@@ -29,13 +46,17 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
       ListaTareas.removeAt(posLista);
     });
   }
-  void CrearTarea(){
+
+  void CrearTarea() {
     showDialog(
-      context: context, 
-      builder: (context){
-        return Dialogonuta();
+      context: context,
+      builder: (context) {
+        return Dialogonuta(
+            tecTxtTarea: tectTxtTarea,
+            AcnGuardar: AcnGuardar,
+            AcnCancelar: AcnCancelar);
       },
-      );
+    );
   }
 
   @override
@@ -52,11 +73,7 @@ class _PaginaPrincipalState extends State<PaginaPrincipal> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal[300],
         shape: const CircleBorder(),
-        onPressed: CrearTarea, //(){
-        //   setState(() {
-        //     ListaTareas.add({"titulo": "Nueva Tarea", "valor": false});
-        //   });
-        // },
+        onPressed: CrearTarea, 
         child: Icon(
           Icons.add,
           color: Colors.orange[200],
